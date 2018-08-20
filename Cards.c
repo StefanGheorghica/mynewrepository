@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//added some more text
+
  int main()
 {
  char card_name[3];
