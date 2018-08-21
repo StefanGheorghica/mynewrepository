@@ -40,13 +40,12 @@ void Delay1ms(unsigned long msec);
 // 3. Subroutines Section
 // MAIN: Mandatory for a C Program to be executable
 int main(void)
-{ 
-  PortF_Init();        // Call initialization of port PF4 PF2    
-   while(1)
-  {
+{	
+	PortF_Init();        // Call initialization of port PF4 PF2    
+	while(1) {
 		GPIO_PORTF_DATA_R ^= 0x08;  // LED is green
-		 Delay1ms(1000); 
-	 }		 
+		Delay1ms(1000); 
+	}		 
 }
 
 // Subroutine to initialize port F pins for input and output
@@ -55,17 +54,19 @@ int main(void)
 // Inputs: None
 // Outputs: None
 // Notes: These five pins are connected to hardware on the LaunchPad
-void PortF_Init(void){ volatile unsigned long delay;
-  SYSCTL_RCGC2_R |= 0x00000020;     // 1) F clock
-  delay = SYSCTL_RCGC2_R;           // delay   
-  GPIO_PORTF_LOCK_R = 0x4C4F434B;   // 2) unlock PortF PF0  
-  GPIO_PORTF_CR_R = 0x1F;           // allow changes to PF4-0       
-  GPIO_PORTF_AMSEL_R = 0x00;        // 3) disable analog function
-  GPIO_PORTF_PCTL_R = 0x00000000;   // 4) GPIO clear bit PCTL  
-  GPIO_PORTF_DIR_R = 0x0E;          // 5) PF4,PF0 input, PF3,PF2,PF1 output   
-  GPIO_PORTF_AFSEL_R = 0x00;        // 6) no alternate function
-  GPIO_PORTF_PUR_R = 0x11;          // enable pullup resistors on PF4,PF0       
-  GPIO_PORTF_DEN_R = 0x1F;          // 7) enable digital pins PF4-PF0        
+void PortF_Init(void)
+{ 
+	volatile unsigned long delay;
+	SYSCTL_RCGC2_R |= 0x00000020;     // 1) F clock
+	delay = SYSCTL_RCGC2_R;           // delay   
+	GPIO_PORTF_LOCK_R = 0x4C4F434B;   // 2) unlock PortF PF0  
+	GPIO_PORTF_CR_R = 0x1F;           // allow changes to PF4-0       
+	GPIO_PORTF_AMSEL_R = 0x00;        // 3) disable analog function
+	GPIO_PORTF_PCTL_R = 0x00000000;   // 4) GPIO clear bit PCTL  
+	GPIO_PORTF_DIR_R = 0x0E;          // 5) PF4,PF0 input, PF3,PF2,PF1 output   
+	GPIO_PORTF_AFSEL_R = 0x00;        // 6) no alternate function
+	GPIO_PORTF_PUR_R = 0x11;          // enable pullup resistors on PF4,PF0       
+	GPIO_PORTF_DEN_R = 0x1F;          // 7) enable digital pins PF4-PF0	        
 }
 // Color    LED(s) PortF
 // dark     ---    0
@@ -78,14 +79,14 @@ void PortF_Init(void){ volatile unsigned long delay;
 // pink     R-B    0x06
 
 
-void Delay1ms(unsigned long msec){
-  unsigned long i;
-  while(msec > 0){
+void Delay1ms(unsigned long msec)
+{
+	unsigned long i;
+	while (msec > 0) { 
 		i=(16000*25/30);
-    //i = 16000;  // this number means 1ms
-    while(i > 0){
-      i = i - 1;
-    }
-    msec = msec - 1; // decrements every 100 ms
-  }
+		//i = 16000;  // this number means 1ms
+		while (i > 0)
+			i = i - 1;
+		msec = msec - 1; // decrements every 100 ms
+	}
 }
